@@ -2,15 +2,15 @@ ymaps.ready(['AddressDelivery']).then(function init() {
 
     var json = {
         city: "Москва",
+        defaultCoords: [55.753215, 37.622504],
         polygons: {}
     };
 
     if($("#map-address").length <= 0){
         return true;
     }
-    var defaultCoords = [59.9388, 30.3161];
     var mapNew = new ymaps.Map("map-address", {
-            center: defaultCoords,
+            center: json.defaultCoords,
             zoom: 9,
             controls: ["zoomControl"]
         }, {}),
@@ -27,7 +27,8 @@ ymaps.ready(['AddressDelivery']).then(function init() {
                 position: {right: 10, top: 10}
             }
         }),
-    addressClass = new ymaps.AddressDelivery(mapNew);
+        addressClass = new ymaps.AddressDelivery(mapNew);
+
     mapNew.behaviors.disable('scrollZoom');
     $("body").on("keyup", "#js-order-adress-map-input-floor",
         $.proxy(addressClass.__setFlat, addressClass, $("#js-order-adress-map-input-floor").get(0)));
@@ -62,11 +63,11 @@ ymaps.ready(['AddressDelivery']).then(function init() {
         $('#js-order-adress-map-input').autocomplete({
             source: function(req, autocompleteRes){
                 ymaps.geocode(req.term, {
-                    results: 10
+                    results: 6
                 }).then(function (res) {
                     var result = [];
                     res.geoObjects.each(function(item){
-                       
+                        console.log(item);
                         var label = item.getAddressLine();
                         var value = label;
                         var coords = item.geometry.getCoordinates();
@@ -75,7 +76,7 @@ ymaps.ready(['AddressDelivery']).then(function init() {
                             value: value,
                             coords: coords,
                             balloonContent: item.properties.get("balloonContent"),
-                            postalCode: item.properties._data.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality.Thoroughfare.Premise.PostalCode.PostalCodeNumber
+                            postalCode: item.properties._data.metaDataProperty.GeocoderMetaData.Address.postal_code
                         });
                     })
                     autocompleteRes(result);
@@ -83,16 +84,21 @@ ymaps.ready(['AddressDelivery']).then(function init() {
             },
             select: function(e, selected){
                 addressClass.setPoint(selected.item.coords);
-                $("#postal-code").val(selected.item.postalCode);
             }
         });
     }
     mapNew.events.add('adress-changed', function(e){
-        var address = e.get('geocode').properties._data.metaDataProperty.GeocoderMetaData.Address.Components;
+        var address = e.get('geocode').properties._data.metaDataProperty.GeocoderMetaData.Address;
         $input = $('#js-order-adress-map-input');
-        $input.val(getAddressLine(address));
-        if(!!$input.val())
-            $input.removeClass("error").parent().removeClass("error");
+        $input.val(getAddressLine(address.Components));
+        var region = "";
+        address.Components.forEach(function(item, i, arr) {
+            if(item.kind == "province"){
+                region = item.name;
+            }
+        });
+        $("#region").val(region);
+        $("#postal-code").val(address.postal_code);
     });
 
     mapNew.container.fitToViewport(true);

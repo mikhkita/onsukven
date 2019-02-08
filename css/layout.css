@@ -1,9 +1,15 @@
 .ui-menu{
+	width: 600px;
+	display: inline-block;
 	position: relative;
 	margin: 10px 0 20px 0;
 }
 
-.ui-widget.ui-widget-content {
+ul.ui-widget.ui-widget-content {
+    border: 1px solid #e4e4e4;
+    -webkit-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
 }
 
 .ui-menu .ui-menu-item .ui-menu-item-wrapper{
@@ -24,11 +30,6 @@
 	border: 0;
 }
 
-.js-order-adress-map{
-	width: 600px;
-	display: inline-block;
-}
-
 #js-order-adress-map-input{
 	width: 100%;
 	padding: 8px 12px;
@@ -36,11 +37,13 @@
 }
 
 #number-room-input,
-#postal-code{
+#postal-code,
+#region{
 	margin-left: 20px;
 	display: inline-block;
 	padding: 8px 12px;
 	width: 200px;
+	font-size: 16px;
 }
 
 #map-address{
