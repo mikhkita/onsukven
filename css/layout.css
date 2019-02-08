@@ -1,0 +1,48 @@
+.ui-menu{
+	position: relative;
+	margin: 10px 0 20px 0;
+}
+
+.ui-widget.ui-widget-content {
+}
+
+.ui-menu .ui-menu-item .ui-menu-item-wrapper{
+    color: #434343;
+	font-family: 'Geometria-Regular';
+	font-size: 16px;
+	line-height: 28px;
+	padding: 12px 24px;
+}
+
+.ui-menu .ui-menu-item .ui-state-active{
+    border: 1px solid transparent;
+    background: transparent;
+    color: #6e58ac !important;
+}
+
+.ui-widget.ui-widget-content{
+	border: 0;
+}
+
+.js-order-adress-map{
+	width: 600px;
+	display: inline-block;
+}
+
+#js-order-adress-map-input{
+	width: 100%;
+	padding: 8px 12px;
+	display: inline-block;
+}
+
+#number-room-input,
+#postal-code{
+	margin-left: 20px;
+	display: inline-block;
+	padding: 8px 12px;
+	width: 200px;
+}
+
+#map-address{
+	height: 500px;
+}

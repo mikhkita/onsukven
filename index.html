@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Тест адресов</title>
+	<meta name="keywords" content=''>
+	<meta name="description" content=''>
+
+	<meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+	<meta name="format-detection" content="telephone=no">
+
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="css/reset.css" type="text/css">
+	<link rel="stylesheet" href="css/jquery-ui.min.css" type="text/css">
+	<link rel="stylesheet" href="css/jquery-ui.theme.min.css" type="text/css">
+	<link rel="stylesheet" href="css/layout.css" type="text/css">
+</head>
+<body>
+
+	<form class="order-adress-map-form clearfix">
+        <div class="order-adress-map-form-content">
+            <div class="form-item __adress b-ui-autocomplete">
+            	<div class="ui-menu ui-widget ui-widget-content ui-autocomplete ui-front b-input">
+            		<input type="text" id="js-order-adress-map-input" class="js-order-adress-map-input ui-autocomplete-input" autocomplete="off" placeholder="Город, улица, дом">
+                </div>
+            </div>
+            <input type="text" id="number-room-input" class="number-room-input" placeholder="Квартира/офис">
+            <input type="text" id="postal-code" name="postalCode" placeholder="Почтовый индекс">
+        </div>
+    </form>
+    <div id="map-address"></div>
+
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<script type="text/javascript" src="https://api-maps.yandex.ru/2.1.41/?load=package.full&lang=ru-RU"></script>
+	<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="js/AddressDeliveryClass.js"></script>
+	<script type="text/javascript" src="js/address.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+</body>
+</html>
