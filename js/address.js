@@ -6,7 +6,7 @@ ymaps.ready(['AddressDelivery']).then(function init() {
 
     var defaultOptions = {
         city: "Москва",
-        defaultCoords: [55.753215, 37.622504],
+        coords: [55.753215, 37.622504],
         polygons: {}
     };
 
@@ -18,14 +18,14 @@ ymaps.ready(['AddressDelivery']).then(function init() {
         var response = result.geoObjects.get(0).properties.get('metaDataProperty');
         if(response){
             defaultOptions.city = response.GeocoderMetaData.text;
-            defaultOptions.defaultCoords = response.GeocoderMetaData.InternalToponymInfo.Point.coordinates;
+            defaultOptions.coords = response.GeocoderMetaData.InternalToponymInfo.Point.coordinates;
         }
         mapInit();
     });
 
     function mapInit () {
         var mapNew = new ymaps.Map("map-address", {
-                center: defaultOptions.defaultCoords,
+                center: defaultOptions.coords,
                 zoom: 11,
                 controls: ["zoomControl"]
             }, {}),
@@ -119,7 +119,8 @@ ymaps.ready(['AddressDelivery']).then(function init() {
                         var result = [];
                         res.geoObjects.each(function(item){
                             //console.log(item);
-                            var label = item.getAddressLine();
+                            var address = item.properties._data.metaDataProperty.GeocoderMetaData.Address.Components;
+                            var label = getAddressLine(address);
                             var value = label;
                             var coords = item.geometry.getCoordinates();
                             result.push({
