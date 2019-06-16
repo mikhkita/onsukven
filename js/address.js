@@ -92,7 +92,7 @@ ymaps.ready(['AddressDelivery']).then(function init() {
 
         //если пользователь покинул input
         $('#js-order-adress-map-input').change(function(){
-            if(addressList[0].label){
+            if(addressList.length && addressList[0].label){
                 ymaps.geocode(addressList[0].label, {
                     results: 1,
                 }).then(function (res) {
@@ -141,6 +141,7 @@ ymaps.ready(['AddressDelivery']).then(function init() {
             });
         }
         mapNew.events.add('adress-changed', function(e){
+            addressList = [];
             var address = e.get('geocode').properties._data.metaDataProperty.GeocoderMetaData.Address;
             $input = $('#js-order-adress-map-input');
             $input.val(getAddressLine(address.Components));
