@@ -66,7 +66,7 @@ ymaps.ready(['AddressDelivery']).then(function init() {
                     res.geoObjects.each(function(item){
                         var address = item.properties._data.metaDataProperty.GeocoderMetaData.Address.Components;
                         var label = getAddressLine(address);
-                        $('#js-order-adress-map-input').val(label);
+                        $('#js-order-adress-map-input').val(label).trigger("focusout");
                     });
                     addressClass.setPoint(res.geoObjects.get(0).geometry.getCoordinates());
                 }
@@ -83,7 +83,7 @@ ymaps.ready(['AddressDelivery']).then(function init() {
                     res.geoObjects.each(function(item){
                         var address = item.properties._data.metaDataProperty.GeocoderMetaData.Address.Components;
                         var label = getAddressLine(address);
-                        $('#js-order-adress-map-input').val(label);
+                        $('#js-order-adress-map-input').val(label).trigger("focusout");
                     });
                     addressClass.setPoint(res.geoObjects.get(0).geometry.getCoordinates());
                 }
@@ -100,13 +100,15 @@ ymaps.ready(['AddressDelivery']).then(function init() {
                         res.geoObjects.each(function(item){
                             var address = item.properties._data.metaDataProperty.GeocoderMetaData.Address.Components;
                             var label = getAddressLine(address);
-                            $('#js-order-adress-map-input').val(label);
+                            $('#js-order-adress-map-input').val(label).trigger("focusout");
                         });
                         addressClass.setPoint(res.geoObjects.get(0).geometry.getCoordinates());
                     }
                 });
-                return false;
+                // return false;
             }
+
+            $("#number-room-input").focus().trigger("focusin");
         });
 
         var addressList = [];
@@ -144,15 +146,15 @@ ymaps.ready(['AddressDelivery']).then(function init() {
             addressList = [];
             var address = e.get('geocode').properties._data.metaDataProperty.GeocoderMetaData.Address;
             $input = $('#js-order-adress-map-input');
-            $input.val(getAddressLine(address.Components));
+            $input.val(getAddressLine(address.Components)).trigger("focusout");
             var region = "";
             address.Components.forEach(function(item, i, arr) {
                 if(item.kind == "province"){
                     region = item.name;
                 }
             });
-            $("#region").val(region);
-            $("#postal-code").val(address.postal_code);
+            $("#region").val(region).trigger("focusout").trigger("change");
+            $("#postal-code").val(address.postal_code).trigger("focusout");
         });
 
         mapNew.container.fitToViewport(true);
